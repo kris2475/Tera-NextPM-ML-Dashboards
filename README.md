@@ -24,59 +24,81 @@ An educational, interactive Python and C++ suite for streaming multi-channel par
 ## Repository Structure
 
 ```text
-├── README.md                           # Documentation and Guide
+tera-nextpm-ml-dashboard/
+├── README.md                              # Documentation and Guide
 ├── firmware/
-│   └── NextPM_ESP32_Firmware.ino       # ESP32 C++ Arduino Sketch
+│   └── NextPM_ESP32_Firmware.ino          # ESP32 C++ Arduino Sketch
 └── dashboards/
-    ├── NextPS_Dashboard.py            # Basic Real-Time Telemetry Stream
-    ├── Gaussian_Mixture_Models.py     # Unsupervised GMM + 3D PCA Clustering
-    ├── NextPS_Forecast_Dashboard.py   # Short-Term Linear Regression Forecast
-    └── NextPS_Supervised3D_Dashboard.py # Supervised Activity Recognition (Random Forest)
+    ├── NextPS_Dashboard.py                # Basic Real-Time Telemetry Stream
+    ├── Gaussian_Mixture_Models.py         # Unsupervised GMM + 3D PCA Clustering
+    ├── NextPS_Forecast_Dashboard.py       # Short-Term Linear Regression Forecast
+    └── NextPS_Supervised3D_Dashboard.py   # Supervised Activity Recognition (Random Forest)
+```
 
-Installation & Setup
-Clone the Repository:
+## Installation & Setup
 
-git clone [https://github.com/your-username/tera-nextpm-ml-dashboard.git](https://github.com/your-username/tera-nextpm-ml-dashboard.git)
-   cd tera-nextpm-ml-dashboard
+### 1. Clone the Repository
 
-Install Python Dependencies:
+```bash
+git clone https://github.com/your-username/tera-nextpm-ml-dashboard.git
+cd tera-nextpm-ml-dashboard
+```
+
+Replace `your-username` with your actual GitHub username.
+
+### 2. Install Python Dependencies
+
+```bash
 pip install customtkinter pandas numpy scikit-learn matplotlib pyserial
+```
 
+### 3. Flash the ESP32 Firmware
 
-Flash the ESP32 Firmware:
+1. Open `firmware/NextPM_ESP32_Firmware.ino` in the Arduino IDE.
+2. Select your ESP32 board and the appropriate COM port.
+3. Upload the sketch.
 
-Open firmware/NextPM_ESP32_Firmware.ino in Arduino IDE.
-
-Select your ESP32 board and COM port.
-
-Upload the sketch. The ESP32 will sample the NextPM sensor every 2 seconds at 115,200 baud (8E1 configuration).
-
+The ESP32 samples the NextPM sensor every 2 seconds and communicates at 115,200 baud using an 8E1 serial configuration (8 data bits, even parity, 1 stop bit).
 
 ## Application Scripts & Demos
 
 ### 1. Basic Real-Time Telemetry Dashboard
-* **Script:** `dashboards/NextPS_Dashboard.py`
-* **Description:** Displays live real-time particle counts for all 5 particle channels (>0.3 µm, >0.5 µm, >1.0 µm, >2.5 µm, >5.0 µm) in a rolling 60-second window, along with descriptive statistics tools and raw CSV export.
+
+**Script:** `dashboards/NextPS_Dashboard.py`
+
+**Description:** Displays live particle counts across all five particle channels (>0.3 µm, >0.5 µm, >1.0 µm, >2.5 µm, and >5.0 µm) in a rolling 60-second window. Includes descriptive statistics tools and raw CSV export.
 
 ### 2. Unsupervised GMM + 3D PCA Clustering
-* **Script:** `dashboards/Gaussian_Mixture_Models.py`
-* **Description:** Analyzes multi-channel particle size ratios on the fly using Gaussian Mixture Models (GMM) and Bayesian Information Criterion (BIC) to dynamically discover operational indoor air regimes without manual tagging. Visualized in an interactive, rotatable 3D PCA space.
+
+**Script:** `dashboards/Gaussian_Mixture_Models.py`
+
+**Description:** Analyses multi-channel particle size ratios in real time using Gaussian Mixture Models (GMM) and the Bayesian Information Criterion (BIC) to explore potential indoor air quality regimes without manual labelling. Results are visualised in an interactive, rotatable 3D PCA space.
 
 ### 3. Predictive Forecasting & Trajectory Space
-* **Script:** `dashboards/NextPS_Forecast_Dashboard.py`
-* **Description:** Applies rolling least-squares linear regression to project particle trajectories 10 seconds into the future (dashed lines). Tracks environmental velocity and plots a continuous 3D phase-space trajectory path.
+
+**Script:** `dashboards/NextPS_Forecast_Dashboard.py`
+
+**Description:** Applies rolling least-squares linear regression to project particle-count trajectories 10 seconds into the future, displayed as dashed lines. Tracks temporal changes and plots a continuous 3D phase-space trajectory.
 
 ### 4. User-Defined Supervised Activity Recognition
-* **Script:** `dashboards/NextPS_Supervised3D_Dashboard.py`
-* **Description:** Allows users to type custom activity labels (e.g., "Cooking", "Cleaning", "Idle"), record live training samples into RAM, and instantly train a Random Forest Classifier. Predicts active room activities in real-time with confidence scores and color-codes custom classes in 3D PCA space.
+
+**Script:** `dashboards/NextPS_Supervised3D_Dashboard.py`
+
+**Description:** Allows users to enter custom activity labels (e.g., "Cooking", "Cleaning", or "Idle"), record live training samples in RAM, and train a Random Forest classifier. The dashboard predicts activity classes in real time, displays confidence scores, and colour-codes custom classes in 3D PCA space.
 
 ## Educational Guides & Scientific Background
 
-Each advanced dashboard includes a built-in Educational Guide pop-up detailing:
+Each advanced dashboard includes a built-in educational guide explaining the underlying concepts.
 
-* **Particulate Matter Physics:** How ultrafine particles ($>0.3\,\mu\text{m}$) correlate with combustion/cooking, while coarse particles ($>2.5\,\mu\text{m}$) correlate with physical movement or dust.
-* **Dimensionality Reduction:** How Principal Component Analysis (PCA) reduces 6-dimensional feature vectors ($[\text{PM}_{0.3}, \text{PM}_{0.5}, \text{PM}_{1.0}, \text{PM}_{2.5}, \text{PM}_{5.0}, \text{Ratio}]$) into 3 orthogonal axes ($\text{PC1}, \text{PC2}, \text{PC3}$) for human visualization.
-* **Machine Learning Fundamentals:** Explanations of Random Forest ensembles, GMM covariance structures, and linear regression derivatives.
+- **Particulate Matter Physics:** Discusses how particle counts across different size thresholds may help distinguish between particle-generating activities, such as cooking, and sources such as dust or movement. These relationships are context-dependent and are not definitive source identifications.
+
+- **Dimensionality Reduction:** Explains how Principal Component Analysis (PCA) reduces a six-dimensional feature vector into three principal components for visualisation:
+
+  `[PM0.3, PM0.5, PM1.0, PM2.5, PM5.0, Ratio]`
+
+  The resulting axes are PC1, PC2, and PC3.
+
+- **Machine Learning Fundamentals:** Introduces Random Forest classification, Gaussian Mixture Model covariance structures, Bayesian Information Criterion (BIC), and linear regression.
 
 ## License
 
