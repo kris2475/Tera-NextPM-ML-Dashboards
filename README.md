@@ -4,7 +4,7 @@ An educational, interactive Python and C++ suite for streaming multi-channel par
 
 ## Hardware Architecture & Wiring
 
-![Hardware Setup](assets/hardware_setup.jpg)
+![Hardware Setup](Hardware.jpg)
 
 ### Components
 
