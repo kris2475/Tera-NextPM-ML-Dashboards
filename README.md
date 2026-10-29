@@ -4,7 +4,7 @@ An educational, interactive Python and C++ suite for streaming multi-channel par
 
 ## Hardware Architecture & Wiring
 
-![Hardware Setup](Hardware.jpg){width="400"}
+![Hardware Setup](Hardware.jpg){width="200"}
 ### Components
 
 * TERA NextPM Particle Sensor (UART Interface)
